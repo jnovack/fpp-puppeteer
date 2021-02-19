@@ -1,11 +1,13 @@
+const iterations = 100;
+const hostname = "fpp.local";
+
+//////////////////////////////////////////
+
 const assert = require('assert')
 const puppeteer = require('puppeteer')
 
 let browser
 let page
-
-const iterations = 100;
-const hostname = "fpp.local";
 
 before(async () => {
     browser = await puppeteer.launch({
