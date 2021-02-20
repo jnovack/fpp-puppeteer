@@ -1,5 +1,5 @@
-const iterations = 100;
-const hostname = "fpp.local";
+const iterations = process.env.ITERATIONS;
+const hostname = process.env.HOST;
 
 //////////////////////////////////////////
 
@@ -68,6 +68,6 @@ describe('settings-all.php', () => {
             await page.waitForSelector('#emailguser', { visible: true });
             assert(response.ok());
             // await page.screenshot({ path: `/screenshots/app.png` })
-        }).timeout(7500);
+        }).timeout(17500);
     }
 });
