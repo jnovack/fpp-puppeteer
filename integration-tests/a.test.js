@@ -1,5 +1,8 @@
 const iterations = process.env.ITERATIONS;
 const hostname = process.env.HOST;
+const timeout = process.env.TIMEOUT;
+const page_a = process.env.A;
+const screenshots = process.env.SCREENSHOTS;
 
 //////////////////////////////////////////
 
@@ -22,7 +25,7 @@ before(async () => {
     })
 
     const browserVersion = await browser.version();
-    console.log("testing " + iterations + " iterations on settings-all.php");
+    console.log("testing " + iterations + " iterations on " + page_a);
 })
 
 beforeEach(async () => {
@@ -48,16 +51,16 @@ const handleTiming = function (time) {
 
     after(function () {
         const totalTimeMillis = Date.now() - time.start;
-        console.log("settings-all.php renders (avg ms) ", totalTimeMillis / iterations);
+        console.log(page_a + " renders (avg ms) ", totalTimeMillis / iterations);
     });
 }
 
-describe('settings-all.php', () => {
+describe(page_a, () => {
     let time = { start: null };
     handleTiming(time);
     for (let i = 0; i < iterations; i++) {
         it('renders' + i, async () => {
-            const response = await page.goto('http://' + hostname + '/settings-all.php',
+            const response = await page.goto('http://' + hostname + '/' + page_a,
                 {
                     waitUntil: 'domcontentloaded',
                 }
@@ -67,7 +70,9 @@ describe('settings-all.php', () => {
             await page.waitForSelector('#blankBetweenSequences', { hidden: true });
             await page.waitForSelector('#emailguser', { visible: true });
             assert(response.ok());
-            // await page.screenshot({ path: `/screenshots/app.png` })
-        }).timeout(17500);
+            if (screenshots == 'true') {
+                await page.screenshot({ path: `/screenshots/a-` + i + `.png` })
+            }
+        }).timeout(timeout);
     }
 });

@@ -1,6 +1,7 @@
+# fpp-puppeteer
 
-# Load test two FPP pages
+This container is designed to load test two pages.
 
-1. copy app.env.sample to app.env
-1. edit app.env to have correct host and number of test iterations
-1. docker-compose up --build
+1. Copy `app.env.sample` to `app.env`
+1. Edit `app.env`
+1. `docker-compose up`
